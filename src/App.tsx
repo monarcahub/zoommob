@@ -33,6 +33,17 @@ export default function App() {
     <div className="min-h-screen bg-zoom-purple selection:bg-zoom-blue selection:text-zoom-purple">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-zoom-purple/80 backdrop-blur-md border-b border-white/10">
+        {/* Tarja de aviso "Seja Motorista Parceiro" */}
+        <div className="bg-zoom-blue text-zoom-purple text-xs md:text-sm font-black py-2.5 px-6 text-center shadow-lg transition-all hover:bg-white">
+          <a 
+            href="https://wa.me/5555997238570" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="flex items-center justify-center gap-2 hover:underline tracking-wide uppercase"
+          >
+            <span>🚗 SEJA MOTORISTA PARCEIRO • Clique aqui e fale no WhatsApp!</span>
+          </a>
+        </div>
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <img 
@@ -47,9 +58,14 @@ export default function App() {
           <div className="hidden md:flex items-center gap-8">
             <a href="#features" className="text-sm font-medium hover:text-zoom-blue transition-colors">Vantagens</a>
             <a href="#about" className="text-sm font-medium hover:text-zoom-blue transition-colors">Sobre</a>
-            <button className="bg-zoom-blue text-white px-6 py-2.5 rounded-full font-bold text-sm hover:scale-105 transition-transform active:scale-95 shadow-[0_0_20px_rgba(30,169,246,0.3)]">
-              EM BREVE
-            </button>
+            <a 
+              href="https://play.google.com/store/apps/details?id=br.com.zoommob.passenger.drivermachine&hl=pt_BR"
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-zoom-blue text-white px-6 py-2.5 rounded-full font-bold text-sm hover:scale-105 transition-transform active:scale-95 shadow-[0_0_20px_rgba(30,169,246,0.3)] text-center"
+            >
+              Baixe para Android
+            </a>
           </div>
 
           {/* Mobile Toggle */}
@@ -70,15 +86,21 @@ export default function App() {
           >
             <a href="#features" className="text-lg font-medium" onClick={() => setIsMenuOpen(false)}>Vantagens</a>
             <a href="#about" className="text-lg font-medium" onClick={() => setIsMenuOpen(false)}>Sobre</a>
-            <button className="bg-zoom-blue text-white px-6 py-4 rounded-full font-bold text-center">
-              EM BREVE
-            </button>
+            <a 
+              href="https://play.google.com/store/apps/details?id=br.com.zoommob.passenger.drivermachine&hl=pt_BR"
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-zoom-blue text-white px-6 py-4 rounded-full font-bold text-center block"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Baixe para Android
+            </a>
           </motion.div>
         )}
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-zoom-gradient">
+      <section className="relative pt-44 pb-20 md:pt-56 md:pb-32 overflow-hidden bg-zoom-gradient">
         {/* Background Decorative Elements */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
           <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-zoom-blue/10 rounded-full blur-[120px]" />
@@ -99,15 +121,23 @@ export default function App() {
               <p className="text-xl text-white/70 mb-10 max-w-lg leading-relaxed">
                 A nova era da mobilidade urbana chegou. Mais segurança, mais economia e a rapidez que o seu dia a dia exige.
               </p>
-              <div className="flex flex-wrap gap-4">
-                <button className="bg-zoom-blue text-white px-10 py-4 rounded-full font-black text-lg hover:scale-105 transition-transform active:scale-95 shadow-[0_0_30px_rgba(30,169,246,0.4)]">
-                  EM BREVE
-                </button>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                <div className="flex flex-col gap-2 w-full sm:w-auto">
+                  <a 
+                    href="https://play.google.com/store/apps/details?id=br.com.zoommob.passenger.drivermachine&hl=pt_BR"
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-zoom-blue text-white px-10 py-4 rounded-full font-black text-lg hover:scale-105 transition-transform active:scale-95 shadow-[0_0_30px_rgba(30,169,246,0.4)] text-center block"
+                  >
+                    Baixe para Android
+                  </a>
+                  <span className="text-xs text-white/50 text-center sm:text-left sm:pl-4 block">em breve para iPhone</span>
+                </div>
                 <a 
                   href="https://instagram.com/zoommobilidade" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="border-2 border-white/20 hover:border-white/40 px-10 py-4 rounded-full font-bold text-lg transition-colors flex items-center gap-2"
+                  className="border-2 border-white/20 hover:border-white/40 px-10 py-4 rounded-full font-bold text-lg transition-colors flex items-center justify-center gap-2 w-full sm:w-auto"
                 >
                   <Instagram className="w-5 h-5" />
                   seguir instagram
