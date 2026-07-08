@@ -4,7 +4,7 @@
  */
 
 import { motion } from "motion/react";
-import { Shield, Zap, TrendingDown, Smartphone, Menu, X, Instagram } from "lucide-react";
+import { Shield, Zap, TrendingDown, Smartphone, Menu, X, Instagram, MapPin, Gift, Apple, Play } from "lucide-react";
 import { useState } from "react";
 
 export default function App() {
@@ -55,16 +55,24 @@ export default function App() {
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             <a href="#features" className="text-sm font-medium hover:text-zoom-blue transition-colors">Vantagens</a>
-            <a href="#about" className="text-sm font-medium hover:text-zoom-blue transition-colors">Sobre</a>
+            <a href="#cities" className="text-sm font-medium hover:text-zoom-blue transition-colors">Cidades</a>
             <a 
               href="https://play.google.com/store/apps/details?id=br.com.zoommob.passenger.drivermachine&hl=pt_BR"
               target="_blank" 
               rel="noopener noreferrer"
-              className="bg-zoom-blue text-white px-6 py-2.5 rounded-full font-bold text-sm hover:scale-105 transition-transform active:scale-95 shadow-[0_0_20px_rgba(30,169,246,0.3)] text-center"
+              className="bg-zoom-blue text-white px-5 py-2 rounded-full font-bold text-xs hover:scale-105 transition-all flex items-center gap-1.5 shadow-[0_0_15px_rgba(30,169,246,0.3)] text-center"
             >
-              Baixe para Android
+              <Play className="w-3 h-3 fill-white" /> Android
+            </a>
+            <a 
+              href="https://apps.apple.com/br/app/zoommob/id6780639540"
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-white text-zoom-purple px-5 py-2 rounded-full font-bold text-xs hover:scale-105 transition-all flex items-center gap-1.5 shadow-[0_0_15px_rgba(255,255,255,0.15)] text-center"
+            >
+              <Apple className="w-3.5 h-3.5 fill-current" /> iPhone
             </a>
           </div>
 
@@ -82,19 +90,30 @@ export default function App() {
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="md:hidden bg-zoom-purple border-b border-white/10 px-6 py-8 flex flex-col gap-6"
+            className="md:hidden bg-zoom-purple border-b border-white/10 px-6 py-8 flex flex-col gap-4"
           >
             <a href="#features" className="text-lg font-medium" onClick={() => setIsMenuOpen(false)}>Vantagens</a>
-            <a href="#about" className="text-lg font-medium" onClick={() => setIsMenuOpen(false)}>Sobre</a>
-            <a 
-              href="https://play.google.com/store/apps/details?id=br.com.zoommob.passenger.drivermachine&hl=pt_BR"
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="bg-zoom-blue text-white px-6 py-4 rounded-full font-bold text-center block"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Baixe para Android
-            </a>
+            <a href="#cities" className="text-lg font-medium" onClick={() => setIsMenuOpen(false)}>Cidades</a>
+            <div className="flex flex-col gap-2 pt-2">
+              <a 
+                href="https://play.google.com/store/apps/details?id=br.com.zoommob.passenger.drivermachine&hl=pt_BR"
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="bg-zoom-blue text-white px-6 py-3 rounded-full font-bold text-center flex items-center justify-center gap-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <Play className="w-4 h-4 fill-white" /> Baixe para Android
+              </a>
+              <a 
+                href="https://apps.apple.com/br/app/zoommob/id6780639540"
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="bg-white text-zoom-purple px-6 py-3 rounded-full font-bold text-center flex items-center justify-center gap-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <Apple className="w-4 h-4 fill-current" /> Baixe para iPhone
+              </a>
+            </div>
           </motion.div>
         )}
       </nav>
@@ -121,26 +140,39 @@ export default function App() {
               <p className="text-xl text-white/70 mb-10 max-w-lg leading-relaxed">
                 A nova era da mobilidade urbana chegou. Mais segurança, mais economia e a rapidez que o seu dia a dia exige.
               </p>
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-                <div className="flex flex-col gap-2 w-full sm:w-auto">
-                  <a 
-                    href="https://play.google.com/store/apps/details?id=br.com.zoommob.passenger.drivermachine&hl=pt_BR"
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="bg-zoom-blue text-white px-10 py-4 rounded-full font-black text-lg hover:scale-105 transition-transform active:scale-95 shadow-[0_0_30px_rgba(30,169,246,0.4)] text-center block"
-                  >
-                    Baixe para Android
-                  </a>
-                  <span className="text-xs text-white/50 text-center sm:text-left sm:pl-4 block">em breve para iPhone</span>
-                </div>
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full">
+                <a 
+                  href="https://play.google.com/store/apps/details?id=br.com.zoommob.passenger.drivermachine&hl=pt_BR"
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="bg-zoom-blue text-white px-6 py-3 rounded-2xl font-bold text-base hover:scale-105 transition-transform active:scale-95 shadow-[0_0_30px_rgba(30,169,246,0.3)] flex items-center justify-center gap-3 border border-white/5"
+                >
+                  <Play className="w-6 h-6 fill-white" />
+                  <div className="text-left leading-none">
+                    <span className="text-[9px] opacity-75 block font-normal uppercase tracking-wider">Disponível no</span>
+                    <span className="text-sm font-black">Google Play</span>
+                  </div>
+                </a>
+                <a 
+                  href="https://apps.apple.com/br/app/zoommob/id6780639540"
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="bg-white text-zoom-purple px-6 py-3 rounded-2xl font-bold text-base hover:scale-105 transition-transform active:scale-95 shadow-[0_0_30px_rgba(255,255,255,0.15)] flex items-center justify-center gap-3"
+                >
+                  <Apple className="w-6 h-6 fill-current" />
+                  <div className="text-left leading-none">
+                    <span className="text-[9px] opacity-75 block font-normal uppercase tracking-wider">Disponível na</span>
+                    <span className="text-sm font-black">App Store</span>
+                  </div>
+                </a>
                 <a 
                   href="https://instagram.com/zoommobilidade" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="border-2 border-white/20 hover:border-white/40 px-10 py-4 rounded-full font-bold text-lg transition-colors flex items-center justify-center gap-2 w-full sm:w-auto"
+                  className="border-2 border-white/20 hover:border-white/40 hover:bg-white/5 px-6 py-3.5 rounded-2xl font-bold text-sm transition-all flex items-center justify-center gap-2"
                 >
-                  <Instagram className="w-5 h-5" />
-                  seguir instagram
+                  <Instagram className="w-4 h-4" />
+                  <span>Instagram</span>
                 </a>
               </div>
             </motion.div>
@@ -223,12 +255,69 @@ export default function App() {
         </div>
       </section>
 
+      {/* Cities Block */}
+      <section id="cities" className="py-24 bg-zoom-purple/50 border-t border-b border-white/5 relative overflow-hidden">
+        {/* Decorative visual elements */}
+        <div className="absolute top-1/2 left-1/4 w-[300px] h-[300px] bg-zoom-blue/5 rounded-full blur-[100px] pointer-events-none" />
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="text-center mb-16">
+            <span className="bg-zoom-blue/10 text-zoom-blue text-xs font-bold tracking-widest uppercase px-4 py-1.5 rounded-full inline-block mb-4">Expansão</span>
+            <h2 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">Onde o ZoomMob está ativo?</h2>
+            <p className="text-white/60 text-lg max-w-2xl mx-auto">
+              Já estamos conectando pessoas e transformando o transporte local em importantes cidades. Confira onde você já pode pedir seu ZoomMob!
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-3 gap-8 max-w-4xl mx-auto mb-16">
+            {[
+              { city: "São Borja", state: "RS", description: "Sua melhor opção de transporte na Fronteira Oeste." },
+              { city: "Bento Gonçalves", state: "RS", description: "Mobilidade ágil e de qualidade na Serra Gaúcha." },
+              { city: "Quaraí", state: "RS", description: "Conforto e segurança para todas as suas viagens diárias." }
+            ].map((item, idx) => (
+              <motion.div
+                key={idx}
+                whileHover={{ y: -5 }}
+                className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center relative group overflow-hidden"
+              >
+                <div className="absolute top-0 left-0 w-full h-1 bg-zoom-blue opacity-50" />
+                <div className="w-12 h-12 bg-zoom-blue/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                  <MapPin className="text-zoom-blue w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold mb-1">{item.city}</h3>
+                <span className="text-xs bg-white/10 text-white/80 px-2 py-0.5 rounded font-semibold uppercase">{item.state}</span>
+                <p className="text-white/60 text-sm mt-3 leading-relaxed">{item.description}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Invest in city CTA card */}
+          <div className="bg-gradient-to-r from-zoom-purple to-zoom-magenta border border-white/10 rounded-3xl p-8 md:p-12 max-w-3xl mx-auto text-center shadow-2xl relative overflow-hidden">
+            <div className="absolute -top-12 -right-12 w-48 h-48 bg-zoom-blue/10 rounded-full blur-3xl pointer-events-none" />
+            <h3 className="text-2xl md:text-3xl font-black mb-4">Quer investir no app em sua cidade?</h3>
+            <p className="text-white/80 text-base mb-8 max-w-lg mx-auto">
+              Leve o ZoomMob para a sua região e faça parte de uma das franquias de mobilidade urbana que mais crescem no estado.
+            </p>
+            <a 
+              href="https://wa.me/5555997238570" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-zoom-blue text-white hover:bg-white hover:text-zoom-purple px-8 py-3.5 rounded-full font-extrabold tracking-wide text-base transition-all inline-flex items-center gap-2 shadow-[0_0_30px_rgba(30,169,246,0.3)] active:scale-95"
+            >
+              <span>Fale Conosco</span>
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.45L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.623-1.023-5.086-2.885-6.948C16.59 2.016 14.133 1 11.516 1 6.082 1 1.657 5.37 1.653 10.803c-.001 1.762.474 3.487 1.378 5.027l-1.012 3.693 3.792-.988c1.51.879 3.15 1.341 4.836 1.343zM18.254 15c-.328-.164-1.94-.956-2.24-1.066-.298-.11-.516-.164-.73.164-.216.328-.834 1.066-1.022 1.284-.188.218-.376.246-.704.082-.328-.164-1.383-.51-2.634-1.627-.973-.867-1.629-1.939-1.82-2.266-.19-.328-.02-.505.143-.668.148-.147.328-.383.492-.574.164-.19.219-.328.328-.546.11-.218.055-.41-.027-.574-.082-.164-.73-1.76-.998-2.414-.26-.628-.526-.54-.73-.54-.188-.008-.404-.01-.622-.01-.218 0-.574.082-.874.41-.3.328-1.148 1.12-1.148 2.73s1.172 3.168 1.334 3.386c.164.218 2.304 3.518 5.582 4.934.78.336 1.39.537 1.86.686.784.248 1.498.214 2.062.129.628-.094 1.94-.793 2.213-1.529.274-.738.274-1.366.19-1.5-.083-.133-.31-.214-.638-.377z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-24 bg-zoom-gradient relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-          <h2 className="text-4xl md:text-6xl font-black mb-8">Pronto para dar um Zoom na sua rotina?</h2>
-          <p className="text-xl text-white/80 mb-12">
-            Seja um dos primeiros a experimentar a revolução da mobilidade urbana. Inscreva-se para receber o convite de lançamento.
+          <h2 className="text-4xl md:text-6xl font-black mb-8">Campanhas, Prêmios & Sorteios Exclusivos! 🎁</h2>
+          <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto leading-relaxed">
+            Cadastre seu WhatsApp e garanta cupons de desconto, corridas grátis e participação em nossas campanhas promocionais e sorteios semanais!
           </p>
           
           {isSubmitted ? (
@@ -238,17 +327,17 @@ export default function App() {
               className="bg-white/10 border border-zoom-blue/50 p-8 rounded-3xl max-w-md mx-auto backdrop-blur-md"
             >
               <div className="w-16 h-16 bg-zoom-blue rounded-full flex items-center justify-center mx-auto mb-4 shadow-[0_0_20px_rgba(30,169,246,0.5)]">
-                <Zap className="text-white fill-white w-8 h-8" />
+                <Gift className="text-white fill-white w-8 h-8" />
               </div>
-              <h3 className="text-2xl font-bold mb-2">Tudo pronto!</h3>
+              <h3 className="text-2xl font-bold mb-2">Inscrição Confirmada! 🎉</h3>
               <p className="text-white/70">
-                Seu cadastro foi realizado com sucesso. Em breve você receberá novidades do ZoomMob no seu WhatsApp.
+                Seu número foi registrado. Agora você já está participando de todas as nossas ofertas, sorteios e campanhas de prêmios. Fique de olho no seu WhatsApp!
               </p>
               <button 
                 onClick={() => setIsSubmitted(false)}
                 className="mt-6 text-zoom-blue font-bold hover:underline"
               >
-                Cadastrar outro número
+                Cadastrar outro contato
               </button>
             </motion.div>
           ) : (
@@ -266,7 +355,7 @@ export default function App() {
                     },
                     body: JSON.stringify({ 
                       whatsapp,
-                      source: 'landing-page',
+                      source: 'promo-sorteios-campanhas',
                       timestamp: new Date().toISOString()
                     }),
                   });
@@ -292,7 +381,7 @@ export default function App() {
                 className="w-full sm:w-80 px-6 py-4 rounded-full bg-white/10 border border-white/20 focus:outline-none focus:border-zoom-blue transition-colors text-white placeholder:text-white/40"
               />
               <button type="submit" className="w-full sm:w-auto bg-zoom-blue text-white px-10 py-4 rounded-full font-black text-lg hover:scale-105 transition-transform active:scale-95 shadow-xl">
-                AVISE-ME
+                QUERO PARTICIPAR
               </button>
             </form>
           )}
