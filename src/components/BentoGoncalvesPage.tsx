@@ -99,13 +99,13 @@ export function BentoGoncalvesPage({ onBackHome }: BentoGoncalvesPageProps) {
         {/* Tarja de aviso "Seja Motorista Parceiro" */}
         <div className="bg-zoom-blue text-zoom-purple text-xs md:text-sm font-black py-2.5 px-6 text-center shadow-lg transition-all hover:bg-white">
           <a
-            href="https://wa.me/5555997238570"
+            href="https://wa.me/5554999995454"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 hover:underline tracking-wide uppercase"
           >
             <span>
-              🚗 SEJA MOTORISTA PARCEIRO EM BENTO GONÇALVES • Clique aqui e fale no WhatsApp!
+              🚗 SEJA MOTORISTA PARCEIRO EM BENTO GONÇALVES • WhatsApp da central: (54) 99999-5454
             </span>
           </a>
         </div>
@@ -570,12 +570,12 @@ export function BentoGoncalvesPage({ onBackHome }: BentoGoncalvesPageProps) {
 
             <div className="pt-6 border-t border-white/15 flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
-                href="https://wa.me/5555997238570"
+                href="https://wa.me/5554999995454"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm font-bold text-white/90 hover:text-zoom-blue transition-colors underline underline-offset-4"
               >
-                Quer dirigir ou investir em Bento Gonçalves? Fale no WhatsApp
+                Quer dirigir em Bento Gonçalves? Fale com a central: (54) 99999-5454
               </a>
               <span className="hidden sm:inline text-white/30">•</span>
               <button
@@ -692,7 +692,7 @@ export function BentoGoncalvesPage({ onBackHome }: BentoGoncalvesPageProps) {
               Termos
             </a>
             <a
-              href="https://wa.me/5555997238570"
+              href="https://wa.me/5554999995454"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-zoom-blue transition-colors"
