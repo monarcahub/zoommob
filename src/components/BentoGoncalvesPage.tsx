@@ -312,7 +312,7 @@ export function BentoGoncalvesPage({ onBackHome }: BentoGoncalvesPageProps) {
                 </a>
 
                 <a
-                  href="https://instagram.com/zoommobilidade"
+                  href="https://www.zoommob.com.br/bento-goncalves"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="border-2 border-white/25 hover:border-white/50 hover:bg-white/10 px-6 py-3.5 rounded-2xl font-bold text-sm transition-all flex items-center justify-center gap-2"
