@@ -24,12 +24,55 @@ import {
   ArrowRight,
   FileText
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { BentoGoncalvesPage } from "./components/BentoGoncalvesPage";
+
+type PageRoute = "home" | "bento-goncalves";
+
+function getRouteFromLocation(): PageRoute {
+  if (typeof window === "undefined") return "home";
+  const path = window.location.pathname.toLowerCase();
+  const hash = window.location.hash.toLowerCase();
+  if (path.includes("bento-goncalves") || hash.includes("bento-goncalves")) {
+    return "bento-goncalves";
+  }
+  return "home";
+}
 
 export default function App() {
+  const [currentPage, setCurrentPage] = useState<PageRoute>(getRouteFromLocation);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isRulesModalOpen, setIsRulesModalOpen] = useState(false);
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setCurrentPage(getRouteFromLocation());
+    };
+    window.addEventListener("popstate", handleRouteChange);
+    window.addEventListener("hashchange", handleRouteChange);
+    return () => {
+      window.removeEventListener("popstate", handleRouteChange);
+      window.removeEventListener("hashchange", handleRouteChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    document.title =
+      currentPage === "bento-goncalves"
+        ? "ZoomMob Bento Gonçalves - App de mobilidade urbana"
+        : "ZoomMob - App de mobilidade urbana";
+  }, [currentPage]);
+
+  const navigateTo = (page: PageRoute) => {
+    const targetPath = page === "bento-goncalves" ? "/bento-goncalves" : "/";
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState({}, "", targetPath);
+    }
+    setCurrentPage(page);
+    setIsMenuOpen(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const features = [
     {
@@ -48,6 +91,10 @@ export default function App() {
       description: "Algoritmos inteligentes que conectam você ao motorista mais próximo em segundos.",
     },
   ];
+
+  if (currentPage === "bento-goncalves") {
+    return <BentoGoncalvesPage onBackHome={() => navigateTo("home")} />;
+  }
 
   return (
     <div className="min-h-screen bg-zoom-purple selection:bg-zoom-blue selection:text-zoom-purple">
@@ -192,7 +239,7 @@ export default function App() {
               {/* Badge: 🏁 RETA FINAL PREMIADA */}
               <motion.div 
                 whileHover={{ scale: 1.02 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-amber-500/20 via-pink-500/25 to-zoom-blue/20 border border-amber-400/50 text-amber-300 text-xs sm:text-sm font-black tracking-wider uppercase backdrop-blur-md shadow-[0_0_20px_rgba(251,191,36,0.25)] mb-5"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-amber-500/20 via-pink-500/25 to-zoom-blue/20 border border-amber-400/50 text-amber-300 text-xs sm:text-sm font-black tracking-wider uppercase backdrop-blur-md shadow-[0_0_20px_rgba(251,191,36,0.25)] mb-2.5"
               >
                 <span className="text-base">🏁</span>
                 <span className="tracking-widest">RETA FINAL PREMIADA</span>
@@ -200,6 +247,12 @@ export default function App() {
                   R$ 1.000 no Pix
                 </span>
               </motion.div>
+
+              {/* Aviso discreto da cidade participante */}
+              <p className="text-[11px] sm:text-xs text-white/65 font-medium flex items-center gap-1.5 mb-4 pl-1">
+                <MapPin className="w-3.5 h-3.5 text-amber-400/80 shrink-0" />
+                <span>Campanha válida para a cidade de São Borja</span>
+              </p>
 
               {/* Headline Principal */}
               <h1 className="text-3xl sm:text-5xl lg:text-[3.4rem] font-black leading-[1.1] mb-5 tracking-tight text-white">
@@ -599,22 +652,46 @@ export default function App() {
 
           <div className="grid sm:grid-cols-3 gap-8 max-w-4xl mx-auto mb-16">
             {[
-              { city: "São Borja", state: "RS", description: "Sua melhor opção de transporte na Fronteira Oeste." },
-              { city: "Bento Gonçalves", state: "RS", description: "Mobilidade ágil e de qualidade na Serra Gaúcha." },
-              { city: "Quaraí", state: "RS", description: "Conforto e segurança para todas as suas viagens diárias." }
+              { city: "São Borja", state: "RS", description: "Sua melhor opção de transporte na Fronteira Oeste.", hasPage: false },
+              { city: "Bento Gonçalves", state: "RS", description: "Mobilidade ágil e de qualidade na Serra Gaúcha.", hasPage: true },
+              { city: "Quaraí", state: "RS", description: "Conforto e segurança para todas as suas viagens diárias.", hasPage: false }
             ].map((item, idx) => (
               <motion.div
                 key={idx}
                 whileHover={{ y: -5 }}
-                className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center relative group overflow-hidden"
+                onClick={item.hasPage ? () => navigateTo("bento-goncalves") : undefined}
+                className={`bg-white/5 border rounded-2xl p-6 text-center relative group overflow-hidden flex flex-col justify-between ${
+                  item.hasPage
+                    ? "border-zoom-blue/40 hover:border-zoom-blue hover:bg-white/10 cursor-pointer transition-all shadow-[0_0_25px_rgba(30,169,246,0.12)]"
+                    : "border-white/10"
+                }`}
               >
                 <div className="absolute top-0 left-0 w-full h-1 bg-zoom-blue opacity-50" />
-                <div className="w-12 h-12 bg-zoom-blue/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                  <MapPin className="text-zoom-blue w-6 h-6" />
+                <div>
+                  <div className="w-12 h-12 bg-zoom-blue/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                    <MapPin className="text-zoom-blue w-6 h-6" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-1">{item.city}</h3>
+                  <span className="text-xs bg-white/10 text-white/80 px-2 py-0.5 rounded font-semibold uppercase">{item.state}</span>
+                  <p className="text-white/60 text-sm mt-3 leading-relaxed">{item.description}</p>
                 </div>
-                <h3 className="text-xl font-bold mb-1">{item.city}</h3>
-                <span className="text-xs bg-white/10 text-white/80 px-2 py-0.5 rounded font-semibold uppercase">{item.state}</span>
-                <p className="text-white/60 text-sm mt-3 leading-relaxed">{item.description}</p>
+
+                {item.hasPage && (
+                  <div className="mt-5 pt-4 border-t border-white/10">
+                    <a
+                      href="/bento-goncalves"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        navigateTo("bento-goncalves");
+                      }}
+                      className="inline-flex items-center justify-center gap-1.5 text-xs font-extrabold text-zoom-blue group-hover:text-white transition-colors uppercase tracking-wider"
+                    >
+                      <span>Acessar página da cidade</span>
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    </a>
+                  </div>
+                )}
               </motion.div>
             ))}
           </div>
@@ -792,7 +869,7 @@ export default function App() {
                 <div className="flex items-start gap-3">
                   <Trophy className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
                   <p className="text-xs sm:text-sm text-amber-200 leading-relaxed">
-                    <strong className="text-white">Mecânica por Mérito de Uso:</strong> Esta campanha não é um sorteio. Os vencedores serão os passageiros que acumularem o maior número de corridas finalizadas pelo app ZoomMob durante o período oficial.
+                    <strong className="text-white">Mecânica por Mérito de Uso:</strong> Esta campanha não é um sorteio. Os vencedores serão os passageiros que acumularem o maior número de corridas finalizadas pelo app ZoomMob na cidade de <strong>São Borja - RS</strong> durante o período oficial.
                   </p>
                 </div>
               </div>
@@ -801,8 +878,18 @@ export default function App() {
               <div className="space-y-5 text-sm text-white/80">
                 <div className="bg-white/5 p-4 rounded-2xl border border-white/10">
                   <h4 className="font-black text-white text-base mb-1.5 flex items-center gap-2">
+                    <MapPin className="w-4 h-4 text-amber-400" />
+                    1. Área de Validade
+                  </h4>
+                  <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
+                    Campanha válida exclusivamente para corridas solicitadas e concluídas na cidade de <strong>São Borja - RS</strong>. Corridas realizadas em outras praças não são contabilizadas neste ranking.
+                  </p>
+                </div>
+
+                <div className="bg-white/5 p-4 rounded-2xl border border-white/10">
+                  <h4 className="font-black text-white text-base mb-1.5 flex items-center gap-2">
                     <Clock className="w-4 h-4 text-amber-400" />
-                    1. Período da Campanha
+                    2. Período da Campanha
                   </h4>
                   <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
                     A contagem de corridas é válida até o dia <strong>20 de dezembro de 2026</strong> às 23h59. A verificação final e divulgação do ranking oficial acontecerão até o dia <strong>23 de dezembro de 2026</strong>.
@@ -812,7 +899,7 @@ export default function App() {
                 <div className="bg-white/5 p-4 rounded-2xl border border-white/10">
                   <h4 className="font-black text-white text-base mb-2 flex items-center gap-2">
                     <Trophy className="w-4 h-4 text-amber-400" />
-                    2. Premiação via Pix (R$ 1.000 no total)
+                    3. Premiação via Pix (R$ 1.000 no total)
                   </h4>
                   <ul className="space-y-2 text-xs sm:text-sm">
                     <li className="flex items-center justify-between p-2 rounded-xl bg-amber-500/15 border border-amber-400/30">
@@ -831,21 +918,21 @@ export default function App() {
                 </div>
 
                 <div className="bg-white/5 p-4 rounded-2xl border border-white/10">
-                  <h4 className="font-black text-white text-base mb-1.5">3. Como Funciona a Pontuação</h4>
+                  <h4 className="font-black text-white text-base mb-1.5">4. Como Funciona a Pontuação</h4>
                   <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
-                    Cada viagem solicitada e completada com sucesso no aplicativo ZoomMob adiciona 1 corrida ao seu histórico na campanha. Todas as corridas continuam valendo os preços justos e o cashback regular do aplicativo.
+                    Cada viagem solicitada e completada com sucesso em São Borja - RS no aplicativo ZoomMob adiciona 1 corrida ao seu histórico na campanha. Todas as corridas continuam valendo os preços justos e o cashback regular do aplicativo.
                   </p>
                 </div>
 
                 <div className="bg-white/5 p-4 rounded-2xl border border-white/10">
-                  <h4 className="font-black text-white text-base mb-1.5">4. Critério de Desempate</h4>
+                  <h4 className="font-black text-white text-base mb-1.5">5. Critério de Desempate</h4>
                   <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
                     Caso dois ou mais participantes empatem na quantidade exata de corridas concluídas, o critério de desempate considerará o participante que atingiu a marca primeiro no sistema.
                   </p>
                 </div>
 
                 <div className="bg-white/5 p-4 rounded-2xl border border-white/10">
-                  <h4 className="font-black text-white text-base mb-1.5">5. Pagamento e Contato</h4>
+                  <h4 className="font-black text-white text-base mb-1.5">6. Pagamento e Contato</h4>
                   <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
                     Os 3 ganhadores serão comunicados pelo número de WhatsApp e telefone registrado na conta ZoomMob. A premiação será transferida em até 48 horas úteis após a confirmação dos dados da chave Pix.
                   </p>
